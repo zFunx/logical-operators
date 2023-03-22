@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { PropTypes } from "prop-types"
 
 import checkImage from "@/assets/circle-check-solid.svg"
 import xImage from "@/assets/circle-xmark-solid.svg"
 
-const BoolCheckbox = () => {
-    console.log(checkImage);
-    const [isTrue, setIsTrue] = useState(false);
-    const toggleTruth = () => setIsTrue(prev => !prev)
-
+const BoolCheckbox = props => {
     return (
-        <div className="w-6 h-6 bg-neutral-200 rounded-full"><img width={24} onClick={toggleTruth} src={isTrue ? checkImage.src: xImage.src} /></div>
+        <div className="w-6 h-6 bg-neutral-200 rounded-full cursor-pointer"><img width={24} onClick={props.toggleTruth} src={props.isTrue ? checkImage.src: xImage.src} /></div>
     )
+}
+
+BoolCheckbox.propTypes = {
+    isTrue: PropTypes.bool.isRequired,
+    toggleTruth: PropTypes.func
 }
 
 export default BoolCheckbox
