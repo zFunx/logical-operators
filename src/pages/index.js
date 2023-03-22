@@ -6,7 +6,9 @@ export default function Home() {
     <div className="w-screen h-screen bg-slate-900 flex flex-col">
       <Nav />
       <div className="flex flex-1">
-        <Variables />
+        <div className='basis-60'>
+          <Variables />
+        </div>
       </div>
     </div>
   )
