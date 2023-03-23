@@ -3,10 +3,7 @@ import { useState } from "react";
 import VariableInp from '@/components/Input/VariableInp'
 import AddVariable from '@/components/Input/AddVariable'
 
-const Variables = () => {
-    const [variables, setVariables] = useState({
-        'My Arg': false,
-    })
+const Variables = ({variables, setVariables}) => {
     const toggleTruth = (varName) => {
         setVariables(prev => ({
             ...prev,
