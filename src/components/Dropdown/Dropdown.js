@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import Proptypes from 'prop-types'
 
-const Dropdown = ({ options }) => {
+const Dropdown = ({ label, options }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const handleOptionClick = (option) => {
@@ -15,7 +16,7 @@ const Dropdown = ({ options }) => {
                 className="bg-gray-300 text-gray-700 font-semibold py-1 px-3 text-sm rounded-full inline-flex items-center"
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
-                + Add
+                {label}
             </button>
             {isDropdownOpen && (
                 <div className="absolute left-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl">
@@ -34,5 +35,10 @@ const Dropdown = ({ options }) => {
         </div>
     );
 };
+
+Dropdown.proptypes = {
+    options: Proptypes.arrayOf(Proptypes.string),
+    label: Proptypes.string,
+}
 
 export default Dropdown;

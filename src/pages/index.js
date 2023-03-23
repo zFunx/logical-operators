@@ -3,11 +3,23 @@ import { useState } from "react";
 import Nav from '@/components/nav'
 import Variables from '@/components/Variables/Variables'
 import Dropdown from '@/components/Dropdown/Dropdown'
+import Operation from '@/components/Operation/Operation'
 
 export default function Home() {
   const [variables, setVariables] = useState({
     'My Arg': false,
   })
+  const [ops, setOps] = useState({
+    firstOp: {
+      operator: 'or',
+      operands: [false, true, { arg: 'My Arg' }, { op: 'second' }],
+    },
+    second: {
+      operator: 'and',
+      operands: [false, true, { arg: 'My Arg' }]
+    }
+  }
+  )
 
   return (
     <div className="w-screen h-screen bg-slate-900 flex flex-col">
@@ -17,7 +29,8 @@ export default function Home() {
           <Variables variables={variables} setVariables={setVariables} />
         </div>
         <div>
-          <Dropdown options={['Constant', 'Argument', 'AND', 'OR']} />
+          <Operation {...ops.firstOp} ops={ops} variables={variables} />
+          <Dropdown options={['Constant', 'Argument', 'AND', 'OR']} label="+ Add" />
         </div>
       </div>
     </div>
