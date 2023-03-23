@@ -1,10 +1,11 @@
 import BoolToogleButton from '@/components/Button/BoolToogleButton.js'
+import VariableDropdown from '@/components/Dropdown/VariableDropdown.js'
 
 const createOperand = (operand, variables, ops) => {
     if (operand.val?.toString()) {
         return <BoolToogleButton />
     } else if (operand.arg) {
-        return <div>Arg: {variables[operand.arg].toString()}</div>
+        return <VariableDropdown variableName={operand.arg} isTrue={variables[operand.arg]} />
     } else if (operand.op) {
         return <Operation operator={ops[operand.op].operator} operands={ops[operand.op].operands} variables={variables} ops={ops} />
     }
