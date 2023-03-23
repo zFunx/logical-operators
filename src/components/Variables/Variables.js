@@ -13,11 +13,31 @@ const Variables = () => {
             [varName]: !prev[varName]
         }))
     }
+    const changeVarName = (prevVarName, newVarName, errCb) => {
+        if (prevVarName != newVarName && !(newVarName in variables)) {
+            const newVars = Object.keys(variables).reduce((obj, key) => {
+                if (key == prevVarName) {
+                    obj[newVarName] = variables[prevVarName]
+                } else {
+                    obj[key] = variables[key]
+                }
+                return obj;
+            }, {});
+
+            setVariables(newVars)
+        } else if (prevVarName == newVarName) {
+            // Do nothing
+        } else {
+            // if variable is already present
+            if (errCb) {
+                errCb()
+            }
+        }
+    }
     const addVar = (varName, successCb, errCb) => {
         if (varName in variables) {
             // if variable is already present
             if (errCb) {
-                console.log('calling cb');
                 errCb()
             }
         } else {
@@ -35,7 +55,7 @@ const Variables = () => {
         <div className='bg-slate-800 p-4 h-full text-slate-200'>
             <h2>My variables</h2>
             <div className='py-4 flex flex-col gap-2'>
-                {Object.keys(variables).map(varName => <VariableInp key={varName} name={varName} val={variables[varName]} toggleTruth={() => toggleTruth(varName)} />)}
+                {Object.keys(variables).map((varName, i) => <VariableInp key={i} name={varName} val={variables[varName]} toggleTruth={() => toggleTruth(varName)} onNameChanged={changeVarName} />)}
             </div>
             <div className="p4">
                 <AddVariable onAdddingName={addVar} />
