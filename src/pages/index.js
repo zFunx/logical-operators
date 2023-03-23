@@ -12,11 +12,11 @@ export default function Home() {
   const [ops, setOps] = useState({
     firstOp: {
       operator: 'or',
-      operands: [false, true, { arg: 'My Arg' }, { op: 'second' }],
+      operands: [{ id: 'a1', val: false }, { id: 'a2', val: true }, { id: 'b1', arg: 'My Arg' }, { id: 'c1', op: 'second' }],
     },
     second: {
       operator: 'and',
-      operands: [false, true, { arg: 'My Arg' }]
+      operands: [{ id: 'd1', val: false }, { id: 'd2', val: true }, { id: 'e2', arg: 'My Arg' }]
     }
   }
   )
@@ -28,10 +28,10 @@ export default function Home() {
         <div className='basis-60'>
           <Variables variables={variables} setVariables={setVariables} />
         </div>
-        <div>
+        {/* <div> */}
           <Operation {...ops.firstOp} ops={ops} variables={variables} />
-          <Dropdown options={['Constant', 'Argument', 'AND', 'OR']} label="+ Add" />
-        </div>
+          {/* <Dropdown options={['Constant', 'Argument', 'AND', 'OR']} label="+ Add" /> */}
+        {/* </div> */}
       </div>
     </div>
   )
