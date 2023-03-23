@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import Nav from '@/components/nav'
 import Variables from '@/components/Variables/Variables'
+import Dropdown from '@/components/Dropdown/Dropdown'
 
 export default function Home() {
   const [variables, setVariables] = useState({
@@ -14,6 +15,9 @@ export default function Home() {
       <div className="flex flex-1">
         <div className='basis-60'>
           <Variables variables={variables} setVariables={setVariables} />
+        </div>
+        <div>
+          <Dropdown options={['Constant', 'Argument', 'AND', 'OR']} />
         </div>
       </div>
     </div>
