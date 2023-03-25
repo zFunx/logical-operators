@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Proptypes from 'prop-types'
 
-import Popup from './Popup'
+import Popup from '@/components/Dropdown/Popup'
 
 const Dropdown = ({ label, options }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);

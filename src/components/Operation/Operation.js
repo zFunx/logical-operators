@@ -5,9 +5,9 @@ const createOperand = (operand, variables, ops, results, updateConstant, rootUpd
     if (operand.val?.toString()) {
         return <BoolToogleButton isTrue={operand.val} setIsTrue={(val) => updateConstant(operand.id, val)} />
     } else if (operand.arg) {
-        return <VariableDropdown variableName={operand.arg} isTrue={variables[operand.arg]} />
+        return <VariableDropdown variableName={operand.arg} isTrue={variables[operand.arg]} options={variables} />
     } else if (operand.op) {
-        return <Operation operatorKey={operand.op} {...ops[operand.op]} ops={ops} variables={variables} result={results[operand.op]} results={results} updateConstant={rootUpdateConstant}/>
+        return <Operation operatorKey={operand.op} {...ops[operand.op]} ops={ops} variables={variables} result={results[operand.op]} results={results} updateConstant={rootUpdateConstant} />
     }
 }
 

@@ -1,4 +1,4 @@
-const Popup = ({options}) => {
+const Popup = ({ options }) => {
     return (
         <div className="absolute left-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl">
             {options.map((option) => (
