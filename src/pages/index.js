@@ -26,25 +26,25 @@ export default function Home() {
     second: false
   })
 
-  const getBoolFromOperand = (operand) => {
+  const getBoolFromOperand = (operand, results) => {
     if (operand.val?.toString()) {
       return operand.val
     } else if (operand.arg) {
       return variables[operand.arg]
     } else if (operand.op) {
-      return ops[operand.op].result
+      return results[operand.op]
     }
   }
 
   useEffect(() => {
     if (ops) {
       // const ops = {...ops};
-      const tempResults = {...results};
+      const tempResults = { ...results };
       Object.keys(ops).reverse().map(key => {
         if ('or' == ops[key].operator) {
           let result = false;
           ops[key].operands.some((operand) => {
-            const val = getBoolFromOperand(operand)
+            const val = getBoolFromOperand(operand, tempResults)
             // console.log('result', operand,val);
             if (val) {
               result = true
@@ -56,13 +56,13 @@ export default function Home() {
         } else if ('and' == ops[key].operator) {
           let result = true;
           ops[key].operands.some((operand) => {
-            const val = getBoolFromOperand(operand)
+            const val = getBoolFromOperand(operand, tempResults)
             if (!val) {
               result = false
               return true;
             }
           });
-          
+
           tempResults[key] = result;
         }
       })
@@ -72,9 +72,16 @@ export default function Home() {
   }, [ops, variables])
 
   const updateConstant = (operatorKey, operandId, val) => {
-    const tempOps = {...ops}
+    const tempOps = { ...ops }
     const matchedOperand = tempOps[operatorKey].operands.find(operand => operandId == operand.id);
     matchedOperand.val = val;
+
+    setOps(tempOps)
+  }
+  const updateVar = (operatorKey, operandId, val) => {
+    const tempOps = { ...ops }
+    const matchedOperand = tempOps[operatorKey].operands.find(operand => operandId == operand.id);
+    matchedOperand.arg = val;
 
     setOps(tempOps)
   }
@@ -87,7 +94,7 @@ export default function Home() {
           <Variables variables={variables} setVariables={setVariables} />
         </div>
         {/* <div> */}
-        <Operation operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant}/>
+        <Operation operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant} updateVar={updateVar} />
         {/* <Dropdown options={['Constant', 'Argument', 'AND', 'OR']} label="+ Add" /> */}
         {/* </div> */}
       </div>
