@@ -14,6 +14,12 @@ const Dropdown = ({ label, options, ...props }) => {
             case 'Argument':
                 props.createArg();
                 break;
+            case 'OR':
+                props.createOp('or');
+                break;
+            case 'AND':
+                props.createOp('and');
+                break;
         }
         // setSelectedOption(option);
         setIsDropdownOpen(false);
