@@ -85,6 +85,19 @@ export default function Home() {
 
     setOps(tempOps)
   }
+  const delOp = (parentkey, opKey) => {
+    const tempOps = { ...ops };
+    if(parentkey){
+      tempOps[parentkey].operands = tempOps[parentkey].operands.filter(operand => operand.op != opKey)
+    }
+    delete tempOps[opKey]
+
+    const tempResults = {...results}
+    delete tempResults[opKey]
+
+    setOps(tempOps)
+    setResults(tempResults)
+  }
 
   return (
     <div className="w-screen h-screen bg-slate-900 flex flex-col">
@@ -94,7 +107,7 @@ export default function Home() {
           <Variables variables={variables} setVariables={setVariables} />
         </div>
         {/* <div> */}
-        <Operation operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant} updateVar={updateVar} />
+        <Operation operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant} updateVar={updateVar} delOp={delOp}/>
         {/* <Dropdown options={['Constant', 'Argument', 'AND', 'OR']} label="+ Add" /> */}
         {/* </div> */}
       </div>
