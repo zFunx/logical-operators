@@ -87,16 +87,24 @@ export default function Home() {
   }
   const delOp = (parentkey, opKey) => {
     const tempOps = { ...ops };
-    if(parentkey){
+    if (parentkey) {
       tempOps[parentkey].operands = tempOps[parentkey].operands.filter(operand => operand.op != opKey)
     }
     delete tempOps[opKey]
 
-    const tempResults = {...results}
+    const tempResults = { ...results }
     delete tempResults[opKey]
 
     setOps(tempOps)
     setResults(tempResults)
+  }
+  const delArgOrConstant = (parentkey, opId) => {
+    const tempOps = { ...ops };
+    if (parentkey) {
+      tempOps[parentkey].operands = tempOps[parentkey].operands.filter(operand => operand.id != opId)
+    }
+
+    setOps(tempOps)
   }
 
   return (
@@ -107,7 +115,7 @@ export default function Home() {
           <Variables variables={variables} setVariables={setVariables} />
         </div>
         {/* <div> */}
-        <Operation operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant} updateVar={updateVar} delOp={delOp}/>
+        <Operation operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant} updateVar={updateVar} delOp={delOp} delArgOrConstant={delArgOrConstant} numOfOperandsInParent={0}/>
         {/* <Dropdown options={['Constant', 'Argument', 'AND', 'OR']} label="+ Add" /> */}
         {/* </div> */}
       </div>
