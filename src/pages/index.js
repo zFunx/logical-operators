@@ -11,17 +11,20 @@ export default function Home() {
   })
   const [ops, setOps] = useState({
     firstOp: {
-      result: false,
       operator: 'or',
-      operands: [{ id: 'a1', val: false }, { id: 'a2', val: true }, { id: 'b1', arg: 'My Arg' }, { id: 'c1', op: 'second' }],
+      operands: [{ id: 'a1', val: false }, { id: 'a2', val: false }, { id: 'b1', arg: 'My Arg' }, { id: 'c1', op: 'second' }],
     },
     second: {
-      result: false,
       operator: 'and',
       operands: [{ id: 'd1', val: false }, { id: 'd2', val: true }, { id: 'e2', arg: 'My Arg' }]
     }
   }
   )
+
+  const [results, setResults] = useState({
+    firstOp: false,
+    second: false
+  })
 
   const getBoolFromOperand = (operand) => {
     if (operand.val?.toString()) {
@@ -35,22 +38,24 @@ export default function Home() {
 
   useEffect(() => {
     if (ops) {
-      const tempOps = ops;
-      Object.keys(tempOps).reverse().map(key => {
-        if ('or' == tempOps[key].operator) {
+      // const ops = {...ops};
+      const tempResults = {...results};
+      Object.keys(ops).reverse().map(key => {
+        if ('or' == ops[key].operator) {
           let result = false;
-          tempOps[key].operands.some((operand) => {
+          ops[key].operands.some((operand) => {
             const val = getBoolFromOperand(operand)
+            // console.log('result', operand,val);
             if (val) {
               result = true
               return true;
             }
           });
 
-          tempOps[key].result = result;
-        } else if ('and' == tempOps[key].operator) {
+          tempResults[key] = result;
+        } else if ('and' == ops[key].operator) {
           let result = true;
-          tempOps[key].operands.some((operand) => {
+          ops[key].operands.some((operand) => {
             const val = getBoolFromOperand(operand)
             if (!val) {
               result = false
@@ -58,12 +63,21 @@ export default function Home() {
             }
           });
           
-          tempOps[key].result = result;
+          tempResults[key] = result;
         }
       })
-    }
-  }, [ops])
 
+      setResults(tempResults)
+    }
+  }, [ops, variables])
+
+  const updateConstant = (operatorKey, operandId, val) => {
+    const tempOps = {...ops}
+    const matchedOperand = tempOps[operatorKey].operands.find(operand => operandId == operand.id);
+    matchedOperand.val = val;
+
+    setOps(tempOps)
+  }
 
   return (
     <div className="w-screen h-screen bg-slate-900 flex flex-col">
@@ -73,7 +87,7 @@ export default function Home() {
           <Variables variables={variables} setVariables={setVariables} />
         </div>
         {/* <div> */}
-        <Operation {...ops.firstOp} ops={ops} variables={variables} />
+        <Operation operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant}/>
         {/* <Dropdown options={['Constant', 'Argument', 'AND', 'OR']} label="+ Add" /> */}
         {/* </div> */}
       </div>
