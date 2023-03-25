@@ -11,6 +11,9 @@ const Dropdown = ({ label, options, ...props }) => {
             case 'Constant':
                 props.createConstant();
                 break;
+            case 'Argument':
+                props.createArg();
+                break;
         }
         // setSelectedOption(option);
         setIsDropdownOpen(false);

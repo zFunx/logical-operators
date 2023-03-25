@@ -119,6 +119,15 @@ export default function Home() {
 
     setOps(tempOps)
   }
+  const createArg = (parentkey) => {
+    const tempOps = { ...ops };
+    tempOps[parentkey].operands.push({
+      id: createRandomId(),
+      arg: Object.keys(variables)[0]
+    })
+
+    setOps(tempOps)
+  }
 
   return (
     <div className="w-screen h-screen bg-slate-900 flex flex-col">
@@ -127,7 +136,7 @@ export default function Home() {
         <div className='basis-60'>
           <Variables variables={variables} setVariables={setVariables} />
         </div>
-        <Operation operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant} updateVar={updateVar} delOp={delOp} delArgOrConstant={delArgOrConstant} numOfOperandsInParent={0} createConstant={createConstant} />
+        <Operation operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant} updateVar={updateVar} delOp={delOp} delArgOrConstant={delArgOrConstant} numOfOperandsInParent={0} createConstant={createConstant} createArg={createArg}/>
       </div>
     </div>
   )
