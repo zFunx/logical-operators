@@ -16,7 +16,7 @@ export default function Home() {
   const [ops, setOps] = useState({
     firstOp: {
       operator: 'or',
-      operands: [{ id: 'a1', val: false }, { id: 'a2', val: false }, { id: 'b1', arg: 'My Arg' }, { id: 'c1', op: 'second' }],
+      operands: [{ id: 'a1', val: false }, { id: 'a2', val: false }, { id: 'c1', op: 'second' }],
     },
     second: {
       operator: 'and',
@@ -89,6 +89,12 @@ export default function Home() {
 
     setOps(tempOps)
   }
+  const updateOp = (parentkey, operator) => {
+    const tempOps = { ...ops }
+    tempOps[parentkey].operator = operator
+
+    setOps(tempOps)
+  }
   const delOp = (parentkey, opKey) => {
     const tempOps = { ...ops };
     if (parentkey) {
@@ -156,7 +162,7 @@ export default function Home() {
         <div className='basis-60'>
           <Variables variables={variables} setVariables={setVariables} />
         </div>
-        <Operation operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant} updateVar={updateVar} delOp={delOp} delArgOrConstant={delArgOrConstant} numOfOperandsInParent={0} createConstant={createConstant} createArg={createArg} createOp={createOp} />
+        <Operation operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant} updateVar={updateVar} delOp={delOp} delArgOrConstant={delArgOrConstant} numOfOperandsInParent={0} createConstant={createConstant} createArg={createArg} createOp={createOp} updateOp={updateOp}/>
       </div>
     </div>
   )
