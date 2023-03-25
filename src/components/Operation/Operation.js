@@ -2,6 +2,7 @@ import BoolToogleButton from '@/components/Button/BoolToogleButton.js'
 import VariableDropdown from '@/components/Dropdown/VariableDropdown.js'
 import WithDelButton from '@/components/WithDelButton.js'
 import DelButton from '@/components/Button/DelButton'
+import Dropdown from '@/components/Dropdown/Dropdown'
 
 const createOperand = (operand, variables, ops, results, updateConstant, rootUpdateConstant, updateVar, rootUpdateVar, delOp, parentkey, delArgOrConstant, numOfOperandsInParent) => {
     if (operand.val?.toString()) {
@@ -22,6 +23,9 @@ const Operation = ({ operator, operands, ...props }) => {
         <div className={`border-l-2 ${props.result ? 'border-green-700 hover:border-green-500' : 'border-red-700 hover:border-red-500'} ml-2 my-2 pl-2 text-slate-100 w-28`}>
             <div className={`font-bold flex gap-2 w-max ${props.result ? 'text-green-500' : 'text-red-500'}`}><div><span className='uppercase'>{operator}</span> | <span className='capitalize'>{props.result.toString()}</span></div> {props.numOfOperandsInParent > 2 && <DelButton onClick={() => props.delOp(props.parentkey, props.operatorKey)} />}</div>
             {operands.map(operand => <div key={operand.id} className='p-1'>{createOperand(operand, props.variables, props.ops, props.results, (operandId, val) => props.updateConstant(props.operatorKey, operandId, val), props.updateConstant, (operandId, val) => props.updateVar(props.operatorKey, operandId, val), props.updateVar, props.delOp, props.operatorKey, props.delArgOrConstant, operands.length)}</div>)}
+            <div className='ml-0 mt-2'>
+                <Dropdown options={['Constant', 'Argument', 'AND', 'OR']} label="+ Add" />
+            </div>
         </div>
     )
 }

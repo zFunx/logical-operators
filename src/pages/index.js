@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import Nav from '@/components/Nav'
 import Variables from '@/components/Variables/Variables'
-import Dropdown from '@/components/Dropdown/Dropdown'
+// import Dropdown from '@/components/Dropdown/Dropdown'
 import Operation from '@/components/Operation/Operation'
 
 export default function Home() {
@@ -116,7 +116,7 @@ export default function Home() {
         </div>
         {/* <div> */}
         <Operation operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant} updateVar={updateVar} delOp={delOp} delArgOrConstant={delArgOrConstant} numOfOperandsInParent={0}/>
-        {/* <Dropdown options={['Constant', 'Argument', 'AND', 'OR']} label="+ Add" /> */}
+        
         {/* </div> */}
       </div>
     </div>

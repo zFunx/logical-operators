@@ -12,11 +12,11 @@ const Dropdown = ({ label, options }) => {
     };
 
     return (
-        <div className="relative">
+        <div className="relative" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
             <button
                 type="button"
                 className="bg-gray-300 text-gray-700 font-semibold py-1 px-3 text-sm rounded-full inline-flex items-center"
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                
             >
                 {label}
             </button>

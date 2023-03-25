@@ -1,8 +1,8 @@
 const Popup = ({ options, handleOptionClick }) => {
     return (
         <>
-            <div className="fixed inset-0"></div>
-            <div className="absolute left-0 top-full mt-2 py-2 w-48 bg-white rounded-md shadow-xl">
+            <div className="fixed inset-0 z-10"></div>
+            <div className="absolute left-0 top-full mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
                 {options.map((option) => (
                     <button
                         key={option}
