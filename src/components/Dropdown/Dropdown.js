@@ -3,10 +3,15 @@ import Proptypes from 'prop-types'
 
 import Popup from '@/components/Dropdown/Popup'
 
-const Dropdown = ({ label, options }) => {
+const Dropdown = ({ label, options, ...props }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const handleOptionClick = (option) => {
+        switch (option) {
+            case 'Constant':
+                props.createConstant();
+                break;
+        }
         // setSelectedOption(option);
         setIsDropdownOpen(false);
     };
@@ -16,7 +21,7 @@ const Dropdown = ({ label, options }) => {
             <button
                 type="button"
                 className="bg-gray-300 text-gray-700 font-semibold py-1 px-3 text-sm rounded-full inline-flex items-center"
-                
+
             >
                 {label}
             </button>
@@ -33,7 +38,7 @@ const Dropdown = ({ label, options }) => {
                 //         </button>
                 //     ))}
                 // </div>
-                <Popup options={options} />
+                <Popup options={options} handleOptionClick={handleOptionClick} />
             )}
         </div>
     );
