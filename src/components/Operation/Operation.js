@@ -1,11 +1,16 @@
 import BoolToogleButton from '@/components/Button/BoolToogleButton.js'
 import VariableDropdown from '@/components/Dropdown/VariableDropdown.js'
+import WithDelButton from '@/components/WithDelButton.js'
 
 const createOperand = (operand, variables, ops, results, updateConstant, rootUpdateConstant, updateVar, rootUpdateVar) => {
     if (operand.val?.toString()) {
-        return <BoolToogleButton isTrue={operand.val} setIsTrue={(val) => updateConstant(operand.id, val)} />
+        return <WithDelButton>
+            <BoolToogleButton isTrue={operand.val} setIsTrue={(val) => updateConstant(operand.id, val)} />
+        </WithDelButton>
     } else if (operand.arg) {
-        return <VariableDropdown variableName={operand.arg} isTrue={variables[operand.arg]} options={variables} updateArg={(val) => updateVar(operand.id, val)} />
+        return <WithDelButton>
+            <VariableDropdown variableName={operand.arg} isTrue={variables[operand.arg]} options={variables} updateArg={(val) => updateVar(operand.id, val)} />
+        </WithDelButton>
     } else if (operand.op) {
         return <Operation operatorKey={operand.op} {...ops[operand.op]} ops={ops} variables={variables} result={results[operand.op]} results={results} updateConstant={rootUpdateConstant} updateVar={rootUpdateVar}/>
     }
