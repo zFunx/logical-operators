@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import Nav from '@/components/nav'
+import Nav from '@/components/Nav'
 import Variables from '@/components/Variables/Variables'
 import Dropdown from '@/components/Dropdown/Dropdown'
 import Operation from '@/components/Operation/Operation'
