@@ -53,7 +53,7 @@ const Variables = ({ variables, setVariables }) => {
     }
 
     return (
-        <div className='p-4 text-slate-200 h-full overflow-y-auto'>
+        <div className='p-4 h-full overflow-y-auto'>
             <h2>My variables</h2>
             {variables && <div className='py-4 flex flex-col gap-2'>
                 {Object.keys(variables).map((varName, i) => <VariableInp key={i} name={varName} val={variables[varName]} toggleTruth={() => toggleTruth(varName)} onNameChanged={changeVarName} deleteVariable={() => deleteVariable(varName)} />)}

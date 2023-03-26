@@ -90,7 +90,9 @@ export default function Home() {
   }, [ops, variables])
 
   useEffect(() => {
-    setFinalResult(singleConstant)
+    if(singleConstant != undefined){
+      setFinalResult(singleConstant)
+    }
   }, [singleConstant])
 
   const updateConstant = (operatorKey, operandId, val) => {
@@ -185,6 +187,7 @@ export default function Home() {
     setSingleConstant(false)
   }
   const deleteSingleConstant = () => {
+    setFinalResult(undefined)
     setSingleConstant(undefined)
   }
 
@@ -198,19 +201,19 @@ export default function Home() {
   }
 
   return (
-    <div className="w-screen h-screen bg-slate-900 flex flex-col">
+    <div className="w-screen h-screen bg-slate-900 flex flex-col text-slate-200">
       <Nav result={finalResult} />
       <div className="flex flex-1 overflow-hidden">
         <div className='basis-80 bg-slate-800'>
           <Variables variables={variables} setVariables={setVariables} />
         </div>
         <div className="overflow-auto w-full">{Object.keys(ops).length > 0 && <Operation parentkey="root" operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant} updateVar={updateVar} delOp={delOp} delArgOrConstant={delArgOrConstant} numOfOperandsInParent={3} createConstant={createConstant} createArg={createArg} createOp={createOp} updateOp={updateOp} />}</div>
-        {typeof singleConstant !== 'undefined' && <div className="text-slate-100 p-4">
+        {typeof singleConstant !== 'undefined' && <div className="p-4">
           <WithDelButton onDelete={deleteSingleConstant} showDelete={true}>
             <BoolToogleButton isTrue={singleConstant} setIsTrue={(val) => setSingleConstant(val)} />
           </WithDelButton>
         </div>}
-        {typeof singleArg !== 'undefined' && <div className="text-slate-100 p-4">
+        {typeof singleArg !== 'undefined' && <div className="p-4">
           <WithDelButton onDelete={deleteSingleArg} showDelete={true}>
             <VariableDropdown variableName={Object.keys(variables)[0]} isTrue={variables[Object.keys(variables)[0]]} options={variables} updateArg={(val) => updateVar(operand.id, val)} />
           </WithDelButton>
