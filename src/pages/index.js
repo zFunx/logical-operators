@@ -17,25 +17,24 @@ const firstOperationKey = "firstOp"
 
 export default function Home() {
   // States
-  const [singleConstant, setSingleConstant] = useState(undefined)
-  const [singleArg, setSingleArg] = useState(undefined)
-  const [finalResult, setFinalResult] = useState(false)
-  const [variables, setVariables] = useState({
+  const [singleConstant, setSingleConstant] = useState(undefined) // when only single constant is present
+  const [singleArg, setSingleArg] = useState(undefined) // when only single argument is present
+  const [finalResult, setFinalResult] = useState(false) // final result of the logic execution
+  const [variables, setVariables] = useState({ // User created variables
     'My Arg': false,
   })
-  const [ops, setOps] = useState({
+  const [ops, setOps] = useState({ // AND and OR operations
     [firstOperationKey]: {
       operator: 'or',
-      operands: [{ id: 'a1', val: false }, { id: 'a2', val: false }, { id: 'c1', op: 'second' }],
+      operands: [{ id: 'a1', val: false }, { id: 'a2', val: false }, { id: 'a3', op: 'second' }],
     },
     second: {
       operator: 'and',
-      operands: [{ id: 'd1', val: false }, { id: 'd2', val: true }, { id: 'e2', arg: 'My Arg' }]
+      operands: [{ id: 'b1', val: false }, { id: 'b2', val: true }, { id: 'b3', arg: 'My Arg' }]
     }
   }
   )
-
-  const [results, setResults] = useState({
+  const [results, setResults] = useState({ // result of individual operation
     [firstOperationKey]: false,
     second: false
   })
