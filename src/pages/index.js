@@ -79,13 +79,19 @@ export default function Home() {
 
       setResults(tempResults)
 
-      if (singleArg) {
+      if (singleConstant != undefined) {
+        setFinalResult(singleConstant)
+      } else if (singleArg != undefined) {
         setFinalResult(variables[singleArg])
       } else {
         setFinalResult(tempResults['firstOp'])
       }
     }
   }, [ops, variables])
+
+  useEffect(() => {
+    setFinalResult(singleConstant)
+  }, [singleConstant])
 
   const updateConstant = (operatorKey, operandId, val) => {
     const tempOps = { ...ops }
