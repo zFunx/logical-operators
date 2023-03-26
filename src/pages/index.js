@@ -5,6 +5,7 @@ import Nav from '@/components/Nav'
 import Variables from '@/components/Variables/Variables'
 // import Dropdown from '@/components/Dropdown/Dropdown'
 import Operation from '@/components/Operation/Operation'
+import Dropdown from '@/components/Dropdown/Dropdown'
 
 // Helpers
 import { createRandomId } from '@/lib/id'
@@ -143,23 +144,30 @@ export default function Home() {
   const createOp = (parentkey, operator) => {
     const tempOps = { ...ops };
     const tempResults = { ...results }
-    const newOpId = createRandomId();
+    const newOpId = parentkey ? createRandomId() : 'firstOp';
 
     tempOps[newOpId] = {
       operator,
       operands: [{ id: createRandomId(), val: false }, { id: createRandomId(), val: false }]
     }
 
-    tempOps[parentkey].operands.push({
-      id: createRandomId(),
-      op: newOpId
-    })
+    if (parentkey) {
+      tempOps[parentkey].operands.push({
+        id: createRandomId(),
+        op: newOpId
+      })
+    }
 
     tempResults[newOpId] = false
 
     setOps(tempOps)
     setResults(tempResults)
   }
+  // const initiateOP = () => {
+  //   setOps({
+
+  //   })
+  // }
 
   return (
     <div className="w-screen h-screen bg-slate-900 flex flex-col">
@@ -169,6 +177,13 @@ export default function Home() {
           <Variables variables={variables} setVariables={setVariables} />
         </div>
         {Object.keys(ops).length > 0 && <Operation parentkey="root" operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant} updateVar={updateVar} delOp={delOp} delArgOrConstant={delArgOrConstant} numOfOperandsInParent={3} createConstant={createConstant} createArg={createArg} createOp={createOp} updateOp={updateOp} />}
+        {Object.keys(ops).length == 0 && <div className="p-4">
+          <Dropdown options={['Constant', 'Argument', 'AND', 'OR']} label="+ Add"
+            createConstant={() => props.createConstant(props.operatorKey)}
+            createArg={() => props.createArg(props.operatorKey)}
+            createOp={(operator) => createOp(null, operator)}
+          />
+        </div>}
       </div>
     </div>
   )
