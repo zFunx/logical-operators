@@ -221,6 +221,7 @@ export default function Home() {
     setResults(tempResults);
   };
 
+  // when only single constant is present
   const createSingleConstant = () => {
     setSingleConstant(false);
   };
@@ -229,6 +230,7 @@ export default function Home() {
     setSingleConstant(undefined);
   };
 
+  // when only single argument is present
   const createSingleArg = () => {
     setSingleArg(Object.keys(variables)[0]);
     setFinalResult(variables[Object.keys(variables)[0]]);
