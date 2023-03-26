@@ -15,6 +15,7 @@ import { createRandomId } from '@/lib/id'
 export default function Home() {
   const [singleConstant, setSingleConstant] = useState(undefined)
   const [singleArg, setSingleArg] = useState(undefined)
+  const [finalResult, setFinalResult] = useState(false)
   const [variables, setVariables] = useState({
     'My Arg': false,
   })
@@ -77,6 +78,7 @@ export default function Home() {
       })
 
       setResults(tempResults)
+      setFinalResult(tempResults['firstOp'])
     }
   }, [ops, variables])
 
@@ -184,7 +186,7 @@ export default function Home() {
 
   return (
     <div className="w-screen h-screen bg-slate-900 flex flex-col">
-      <Nav />
+      <Nav result={finalResult} />
       <div className="flex flex-1">
         <div className='basis-60'>
           <Variables variables={variables} setVariables={setVariables} />
