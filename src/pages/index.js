@@ -143,7 +143,10 @@ export default function Home() {
     setOps(tempOps);
   };
 
-
+  // Delete states
+  /**
+   * Delete operand and associated operation
+   */
   const delOp = (parentkey, opKey) => {
     if (rootKey == parentkey) {
       setOps({});
@@ -173,6 +176,7 @@ export default function Home() {
 
     setOps(tempOps);
   };
+
   const createConstant = (parentkey) => {
     const tempOps = { ...ops };
     tempOps[parentkey].operands.push({
@@ -194,7 +198,7 @@ export default function Home() {
   const createOp = (parentkey, operator) => {
     const tempOps = { ...ops };
     const tempResults = { ...results };
-    const newOpId = parentkey ? createRandomId() : firstOperationKey;
+    const newOpId = rootKey == parentkey ? firstOperationKey : createRandomId();
 
     tempOps[newOpId] = {
       operator,
@@ -204,7 +208,7 @@ export default function Home() {
       ],
     };
 
-    if (parentkey) {
+    if (rootKey != parentkey) {
       tempOps[parentkey].operands.push({
         id: createRandomId(),
         op: newOpId,
@@ -293,7 +297,7 @@ export default function Home() {
                   label="+ Add"
                   createConstant={createSingleConstant}
                   createArg={createSingleArg}
-                  createOp={(operator) => createOp(null, operator)}
+                  createOp={(operator) => createOp(rootKey, operator)}
                 />
               </div>
             )}
