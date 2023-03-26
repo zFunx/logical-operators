@@ -114,6 +114,7 @@ export default function Home() {
     }
   };
 
+  // Update states
   const updateConstant = (parentKey, operandId, val) => {
     const tempOps = { ...ops };
     const matchedOperand = tempOps[parentKey].operands.find(
@@ -123,21 +124,26 @@ export default function Home() {
 
     setOps(tempOps);
   };
-  const updateVar = (operatorKey, operandId, val) => {
+  const updateVar = (parentKey, operandId, val) => {
     const tempOps = { ...ops };
-    const matchedOperand = tempOps[operatorKey].operands.find(
+    const matchedOperand = tempOps[parentKey].operands.find(
       (operand) => operandId == operand.id
     );
     matchedOperand.arg = val;
 
     setOps(tempOps);
   };
+  /**
+   * Toggle between OR and AND operators
+   */
   const updateOp = (parentkey, operator) => {
     const tempOps = { ...ops };
     tempOps[parentkey].operator = operator;
 
     setOps(tempOps);
   };
+
+
   const delOp = (parentkey, opKey) => {
     if (rootKey == parentkey) {
       setOps({});
