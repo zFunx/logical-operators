@@ -29,7 +29,7 @@ const Dropdown = ({ label, options, ...props }) => {
         <div className="relative" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
             <button
                 type="button"
-                className="bg-gray-300 text-gray-700 font-semibold py-1 px-3 text-sm rounded-full inline-flex items-center"
+                className={`${isDropdownOpen ? 'shadow-border' : ''} bg-gray-300 text-gray-700 font-semibold py-1 px-3 text-sm rounded-full inline-flex items-center`}
 
             >
                 {label}
