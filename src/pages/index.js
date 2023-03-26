@@ -12,7 +12,11 @@ import VariableDropdown from '@/components/Dropdown/VariableDropdown.js'
 // Helpers
 import { createRandomId } from '@/lib/id'
 
+const rootKey = "root"
+const firstOperationKey = "firstOp"
+
 export default function Home() {
+  // States
   const [singleConstant, setSingleConstant] = useState(undefined)
   const [singleArg, setSingleArg] = useState(undefined)
   const [finalResult, setFinalResult] = useState(false)
@@ -20,7 +24,7 @@ export default function Home() {
     'My Arg': false,
   })
   const [ops, setOps] = useState({
-    firstOp: {
+    [firstOperationKey]: {
       operator: 'or',
       operands: [{ id: 'a1', val: false }, { id: 'a2', val: false }, { id: 'c1', op: 'second' }],
     },
@@ -32,7 +36,7 @@ export default function Home() {
   )
 
   const [results, setResults] = useState({
-    firstOp: false,
+    [firstOperationKey]: false,
     second: false
   })
 
@@ -84,7 +88,7 @@ export default function Home() {
       } else if (singleArg != undefined) {
         setFinalResult(variables[singleArg])
       } else {
-        setFinalResult(tempResults['firstOp'])
+        setFinalResult(tempResults[firstOperationKey])
       }
     }
   }, [ops, variables])
@@ -168,7 +172,7 @@ export default function Home() {
   const createOp = (parentkey, operator) => {
     const tempOps = { ...ops };
     const tempResults = { ...results }
-    const newOpId = parentkey ? createRandomId() : 'firstOp';
+    const newOpId = parentkey ? createRandomId() : firstOperationKey;
 
     tempOps[newOpId] = {
       operator,
@@ -212,7 +216,25 @@ export default function Home() {
         <div className='basis-80 bg-slate-800'>
           <Variables variables={variables} setVariables={setVariables} />
         </div>
-        <div className="overflow-auto w-full">{Object.keys(ops).length > 0 && <Operation parentkey="root" operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant} updateVar={updateVar} delOp={delOp} delArgOrConstant={delArgOrConstant} numOfOperandsInParent={3} createConstant={createConstant} createArg={createArg} createOp={createOp} updateOp={updateOp} />}
+        <div className="overflow-auto w-full">{Object.keys(ops).length > 0 && (
+          <Operation
+            parentkey={rootKey}
+            operatorKey={firstOperationKey}
+            {...ops[firstOperationKey]}
+            ops={ops}
+            variables={variables}
+            result={results[firstOperationKey]}
+            results={results}
+            updateConstant={updateConstant}
+            updateVar={updateVar}
+            delOp={delOp}
+            delArgOrConstant={delArgOrConstant}
+            numOfOperandsInParent={3}
+            createConstant={createConstant}
+            createArg={createArg}
+            createOp={createOp}
+            updateOp={updateOp} />
+        )}
           {typeof singleConstant !== 'undefined' && <div className="p-4">
             <WithDelButton onDelete={deleteSingleConstant} showDelete={true}>
               <BoolToogleButton isTrue={singleConstant} setIsTrue={(val) => setSingleConstant(val)} />
