@@ -1,10 +1,10 @@
-import delImage from "@/assets/trash-can-solid.svg"
+import DelButton from '@/components/Button/DelButton'
 
 const WithDelButton = props => {
   return (
     <div className="flex gap-2">
         <div>{props.children}</div>
-        {props.showDelete && <img className="mr-2 cursor-pointer opacity-70 hover:opacity-100" width={14} onClick={props.onDelete} src={delImage.src} />}
+        {props.showDelete && <DelButton onClick={props.onDelete}/>}
     </div>
   )
 }
