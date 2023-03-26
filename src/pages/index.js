@@ -96,17 +96,23 @@ export default function Home() {
     setOps(tempOps)
   }
   const delOp = (parentkey, opKey) => {
-    const tempOps = { ...ops };
-    if (parentkey) {
-      tempOps[parentkey].operands = tempOps[parentkey].operands.filter(operand => operand.op != opKey)
+    if ('root' == parentkey) {
+      setOps({})
+      setResults({})
     }
-    delete tempOps[opKey]
+    else {
+      const tempOps = { ...ops };
+      tempOps[parentkey].operands = tempOps[parentkey].operands.filter(operand => operand.op != opKey)
 
-    const tempResults = { ...results }
-    delete tempResults[opKey]
+      delete tempOps[opKey]
 
-    setOps(tempOps)
-    setResults(tempResults)
+      const tempResults = { ...results }
+      delete tempResults[opKey]
+
+      setOps(tempOps)
+      setResults(tempResults)
+    }
+
   }
   const delArgOrConstant = (parentkey, opId) => {
     const tempOps = { ...ops };
@@ -162,7 +168,7 @@ export default function Home() {
         <div className='basis-60'>
           <Variables variables={variables} setVariables={setVariables} />
         </div>
-        <Operation operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant} updateVar={updateVar} delOp={delOp} delArgOrConstant={delArgOrConstant} numOfOperandsInParent={0} createConstant={createConstant} createArg={createArg} createOp={createOp} updateOp={updateOp}/>
+        {Object.keys(ops).length > 0 && <Operation parentkey="root" operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant} updateVar={updateVar} delOp={delOp} delArgOrConstant={delArgOrConstant} numOfOperandsInParent={3} createConstant={createConstant} createArg={createArg} createOp={createOp} updateOp={updateOp} />}
       </div>
     </div>
   )
