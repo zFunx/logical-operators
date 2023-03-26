@@ -5,6 +5,7 @@ import Popup from '@/components/Dropdown/Popup'
 
 const Dropdown = ({ label, options, ...props }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const toogleDropdown = () => setIsDropdownOpen(prev => !prev)
 
     const handleOptionClick = (option) => {
         switch (option) {
@@ -21,34 +22,14 @@ const Dropdown = ({ label, options, ...props }) => {
                 props.createOp('and');
                 break;
         }
-        // setSelectedOption(option);
-        setIsDropdownOpen(false);
     };
 
     return (
-        <div className="relative" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-            <button
-                type="button"
-                className={`${isDropdownOpen ? 'shadow-border' : ''} bg-gray-300 text-gray-700 font-semibold py-1 px-3 text-sm rounded-full inline-flex items-center`}
-
-            >
+        <div className="relative" onClick={toogleDropdown}>
+            <button className={`${isDropdownOpen ? 'shadow-border' : ''} bg-gray-300 text-gray-700 font-semibold py-1 px-3 text-sm rounded-full`}>
                 {label}
             </button>
-            {isDropdownOpen && (
-                // <div className="absolute left-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl">
-                //     {options.map((option) => (
-                //         <button
-                //             key={option}
-                //             type="button"
-                //             className="block px-4 py-2 text-gray-800 hover:bg-gray-200 w-full text-left"
-                //             onClick={() => handleOptionClick(option)}
-                //         >
-                //             {option}
-                //         </button>
-                //     ))}
-                // </div>
-                <Popup options={options} handleOptionClick={handleOptionClick} />
-            )}
+            {isDropdownOpen && <Popup options={options} handleOptionClick={handleOptionClick} />}
         </div>
     );
 };

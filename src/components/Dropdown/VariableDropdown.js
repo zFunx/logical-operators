@@ -8,7 +8,7 @@ const VariableDropdown = props => {
     const toggleDropdown = () => setIsDropdownOpen(prev => !prev)
 
     return (
-        <div className={`${props.isTrue ? 'bg-green-700/20' : 'bg-red-700/20'} ${isDropdownOpen ? 'shadow-border' : 'cursor-pointer'} relative p-2 w-max rounded-md flex justify-between gap-2`} onClick={toggleDropdown}>
+        <div className={`${props.isTrue ? 'bg-green-700/20' : 'bg-red-700/20'} ${isDropdownOpen ? 'shadow-border' : 'cursor-pointer'} relative p-2 w-max rounded-md flex gap-2`} onClick={toggleDropdown}>
             Arg: {props.variableName}
             <BoolCheckbox isTrue={props.isTrue} />
             {isDropdownOpen && <Popup options={Object.keys(props.options)} handleOptionClick={props.updateArg}/>}
