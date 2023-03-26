@@ -7,6 +7,14 @@ npm i
 npm run dev
 ```
 
+## Instructions
+1. Click on icons to toggle values from TRUE to FALSE to TRUE
+![Test case](./docs/Screenshot_10.png)
+1. Click on operator name to toggle the operator
+![Test case](./docs/Screenshot_11.png)
+2. Click on argument to select another argument from the list of arguments
+![Test case](./docs/Screenshot_12.png)
+
 ## Test cases (Complex to simple)
 1. Create an OR operation. This will add two constants with FALSE values. Add AND operation as an operand of our OR operation. Add an argument `My Arg` in addition to two default FALSE constants in our AND operation. Toggle all operands of AND operations to TRUE. Result will be TRUE.
 ![Test case](./docs/Screenshot_7.png)
