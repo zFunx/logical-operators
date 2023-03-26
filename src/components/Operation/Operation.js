@@ -20,7 +20,7 @@ const createOperand = (operand, variables, ops, results, updateConstant, rootUpd
 
 const Operation = ({ operator, operands, ...props }) => {
     return (
-        <div className={`border-l-2 ${props.result ? 'border-green-700 hover:border-green-500' : 'border-red-700 hover:border-red-500'} ml-2 my-2 pl-2 w-28`}>
+        <div className={`border-l-2 ${props.result ? 'border-green-700 hover:border-green-500' : 'border-red-700 hover:border-red-500'} ml-2 my-2 pl-4 w-28`}>
             <div className={`font-bold flex gap-2 w-max cursor-pointer ${props.result ? 'text-green-500' : 'text-red-500'}`}><div onClick={() => props.updateOp(props.operatorKey, operator == 'and' ? 'or' : 'and')}><span className='uppercase'>{operator}</span> | <span className='capitalize'>{props.result.toString()}</span></div> {props.numOfOperandsInParent > 2 && <DelButton onClick={() => props.delOp(props.parentkey, props.operatorKey)} />}</div>
             {operands.map(operand => <div key={operand.id} className='p-1'>{createOperand(operand, props.variables, props.ops, props.results, (operandId, val) => props.updateConstant(props.operatorKey, operandId, val), props.updateConstant, (operandId, val) => props.updateVar(props.operatorKey, operandId, val), props.updateVar, props.delOp, props.operatorKey, props.delArgOrConstant, operands.length, props.createConstant, props.createArg, props.createOp, props.updateOp)}</div>)}
             <div className='ml-0 mt-2'>

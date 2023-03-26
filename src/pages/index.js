@@ -90,7 +90,7 @@ export default function Home() {
   }, [ops, variables])
 
   useEffect(() => {
-    if(singleConstant != undefined){
+    if (singleConstant != undefined) {
       setFinalResult(singleConstant)
     }
   }, [singleConstant])
@@ -207,24 +207,25 @@ export default function Home() {
         <div className='basis-80 bg-slate-800'>
           <Variables variables={variables} setVariables={setVariables} />
         </div>
-        <div className="overflow-auto w-full">{Object.keys(ops).length > 0 && <Operation parentkey="root" operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant} updateVar={updateVar} delOp={delOp} delArgOrConstant={delArgOrConstant} numOfOperandsInParent={3} createConstant={createConstant} createArg={createArg} createOp={createOp} updateOp={updateOp} />}</div>
-        {typeof singleConstant !== 'undefined' && <div className="p-4">
-          <WithDelButton onDelete={deleteSingleConstant} showDelete={true}>
-            <BoolToogleButton isTrue={singleConstant} setIsTrue={(val) => setSingleConstant(val)} />
-          </WithDelButton>
-        </div>}
-        {typeof singleArg !== 'undefined' && <div className="p-4">
-          <WithDelButton onDelete={deleteSingleArg} showDelete={true}>
-            <VariableDropdown variableName={Object.keys(variables)[0]} isTrue={variables[Object.keys(variables)[0]]} options={variables} updateArg={(val) => updateVar(operand.id, val)} />
-          </WithDelButton>
-        </div>}
-        {Object.keys(ops).length == 0 && typeof singleConstant == 'undefined' && typeof singleArg == 'undefined' && <div className="p-4">
-          <Dropdown options={['Constant', 'Argument', 'AND', 'OR']} label="+ Add"
-            createConstant={createSingleConstant}
-            createArg={createSingleArg}
-            createOp={(operator) => createOp(null, operator)}
-          />
-        </div>}
+        <div className="overflow-auto w-full">{Object.keys(ops).length > 0 && <Operation parentkey="root" operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant} updateVar={updateVar} delOp={delOp} delArgOrConstant={delArgOrConstant} numOfOperandsInParent={3} createConstant={createConstant} createArg={createArg} createOp={createOp} updateOp={updateOp} />}
+          {typeof singleConstant !== 'undefined' && <div className="p-4">
+            <WithDelButton onDelete={deleteSingleConstant} showDelete={true}>
+              <BoolToogleButton isTrue={singleConstant} setIsTrue={(val) => setSingleConstant(val)} />
+            </WithDelButton>
+          </div>}
+          {typeof singleArg !== 'undefined' && <div className="p-4">
+            <WithDelButton onDelete={deleteSingleArg} showDelete={true}>
+              <VariableDropdown variableName={Object.keys(variables)[0]} isTrue={variables[Object.keys(variables)[0]]} options={variables} updateArg={(val) => updateVar(operand.id, val)} />
+            </WithDelButton>
+          </div>}
+          {Object.keys(ops).length == 0 && typeof singleConstant == 'undefined' && typeof singleArg == 'undefined' && <div className="p-4">
+            <Dropdown options={['Constant', 'Argument', 'AND', 'OR']} label="+ Add"
+              createConstant={createSingleConstant}
+              createArg={createSingleArg}
+              createOp={(operator) => createOp(null, operator)}
+            />
+          </div>}
+        </div>
       </div>
     </div>
   )
