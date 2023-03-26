@@ -1,7 +1,7 @@
 import VariableInp from '@/components/Input/VariableInp'
 import AddVariable from '@/components/Input/AddVariable'
 
-const Variables = ({variables, setVariables}) => {
+const Variables = ({ variables, setVariables }) => {
     const toggleTruth = (varName) => {
         setVariables(prev => ({
             ...prev,
@@ -46,21 +46,19 @@ const Variables = ({variables, setVariables}) => {
         }
     }
     const deleteVariable = (varName) => {
-        const tempVars = {...variables}
+        const tempVars = { ...variables }
         delete tempVars[varName];
 
         setVariables(tempVars)
     }
 
     return (
-        <div className='bg-slate-800 p-4 h-full text-slate-200'>
+        <div className='p-4 text-slate-200 h-full overflow-y-auto'>
             <h2>My variables</h2>
             {variables && <div className='py-4 flex flex-col gap-2'>
-                {Object.keys(variables).map((varName, i) => <VariableInp key={i} name={varName} val={variables[varName]} toggleTruth={() => toggleTruth(varName)} onNameChanged={changeVarName} deleteVariable={() => deleteVariable(varName)}/>)}
+                {Object.keys(variables).map((varName, i) => <VariableInp key={i} name={varName} val={variables[varName]} toggleTruth={() => toggleTruth(varName)} onNameChanged={changeVarName} deleteVariable={() => deleteVariable(varName)} />)}
             </div>}
-            <div className="p4">
-                <AddVariable onAdddingName={addVar} />
-            </div>
+            <AddVariable onAdddingName={addVar} />
         </div>
     )
 }

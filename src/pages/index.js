@@ -200,11 +200,11 @@ export default function Home() {
   return (
     <div className="w-screen h-screen bg-slate-900 flex flex-col">
       <Nav result={finalResult} />
-      <div className="flex flex-1">
-        <div className='basis-60'>
+      <div className="flex flex-1 overflow-hidden">
+        <div className='basis-80 bg-slate-800'>
           <Variables variables={variables} setVariables={setVariables} />
         </div>
-        {Object.keys(ops).length > 0 && <Operation parentkey="root" operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant} updateVar={updateVar} delOp={delOp} delArgOrConstant={delArgOrConstant} numOfOperandsInParent={3} createConstant={createConstant} createArg={createArg} createOp={createOp} updateOp={updateOp} />}
+        <div className="overflow-auto w-full">{Object.keys(ops).length > 0 && <Operation parentkey="root" operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant} updateVar={updateVar} delOp={delOp} delArgOrConstant={delArgOrConstant} numOfOperandsInParent={3} createConstant={createConstant} createArg={createArg} createOp={createOp} updateOp={updateOp} />}</div>
         {typeof singleConstant !== 'undefined' && <div className="text-slate-100 p-4">
           <WithDelButton onDelete={deleteSingleConstant} showDelete={true}>
             <BoolToogleButton isTrue={singleConstant} setIsTrue={(val) => setSingleConstant(val)} />

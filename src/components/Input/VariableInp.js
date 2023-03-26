@@ -2,7 +2,6 @@ import { useState } from "react";
 import { PropTypes } from "prop-types"
 
 import BoolCheckbox from '@/components/BoolCheckbox'
-import delImage from "@/assets/trash-can-solid.svg"
 
 const VariableInp = props => {
     const [isErr, setIsErr] = useState(false);
@@ -29,13 +28,10 @@ const VariableInp = props => {
 
     return (
         <div className={isErr || invalidErr ? 'mb-3' : ''}>
-            {/* <div className="flex"> */}
-                {/* <img className="mr-2 cursor-pointer opacity-70 hover:opacity-100" width={14} onClick={props.deleteVariable} src={delImage.src} /> */}
-                <div className='p-2 bg-slate-700 rounded-md flex'>
-                    <input className='bg-transparent outline-none flex-1' type="text" defaultValue={props.name} onChange={onNameChanged} />
-                    <BoolCheckbox isTrue={props.val} toggleTruth={props.toggleTruth} />
-                </div>
-            {/* </div> */}
+            <div className='p-2 bg-slate-700 rounded-md flex'>
+                <input className='bg-transparent outline-none flex-1' type="text" defaultValue={props.name} onChange={onNameChanged} />
+                <BoolCheckbox isTrue={props.val} toggleTruth={props.toggleTruth} />
+            </div>
             {isErr && <small className="text-red-400">Variable is already present. </small>}
             {invalidErr && <small className="text-red-400">{invalidErr} </small>}
             {(isErr || invalidErr) && <small className="text-red-400">This variable will be evaluated with name <strong>{props.name}</strong></small>}
