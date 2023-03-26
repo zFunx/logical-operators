@@ -3,14 +3,16 @@ import { useState, useEffect } from "react";
 // Components
 import Nav from '@/components/Nav'
 import Variables from '@/components/Variables/Variables'
-// import Dropdown from '@/components/Dropdown/Dropdown'
 import Operation from '@/components/Operation/Operation'
 import Dropdown from '@/components/Dropdown/Dropdown'
+import WithDelButton from '@/components/WithDelButton.js'
+import BoolToogleButton from '@/components/Button/BoolToogleButton.js'
 
 // Helpers
 import { createRandomId } from '@/lib/id'
 
 export default function Home() {
+  const [singleConstant, setSingleConstant] = useState(undefined)
   const [variables, setVariables] = useState({
     'My Arg': false,
   })
@@ -163,11 +165,12 @@ export default function Home() {
     setOps(tempOps)
     setResults(tempResults)
   }
-  // const initiateOP = () => {
-  //   setOps({
-
-  //   })
-  // }
+  const createSingleConstant = () => {
+    setSingleConstant(false)
+  }
+  const deleteSingleConstant = () => {
+    setSingleConstant(undefined)
+  }
 
   return (
     <div className="w-screen h-screen bg-slate-900 flex flex-col">
@@ -177,9 +180,14 @@ export default function Home() {
           <Variables variables={variables} setVariables={setVariables} />
         </div>
         {Object.keys(ops).length > 0 && <Operation parentkey="root" operatorKey="firstOp" {...ops.firstOp} ops={ops} variables={variables} result={results.firstOp} results={results} updateConstant={updateConstant} updateVar={updateVar} delOp={delOp} delArgOrConstant={delArgOrConstant} numOfOperandsInParent={3} createConstant={createConstant} createArg={createArg} createOp={createOp} updateOp={updateOp} />}
-        {Object.keys(ops).length == 0 && <div className="p-4">
+        {typeof singleConstant !== 'undefined' && <div className="text-slate-100">
+          <WithDelButton onDelete={deleteSingleConstant} showDelete={true}>
+              <BoolToogleButton isTrue={singleConstant} setIsTrue={(val) => setSingleConstant(val)} />
+          </WithDelButton>
+        </div>}
+        {Object.keys(ops).length == 0 && typeof singleConstant == 'undefined' && <div className="p-4">
           <Dropdown options={['Constant', 'Argument', 'AND', 'OR']} label="+ Add"
-            createConstant={() => props.createConstant(props.operatorKey)}
+            createConstant={createSingleConstant}
             createArg={() => props.createArg(props.operatorKey)}
             createOp={(operator) => createOp(null, operator)}
           />
