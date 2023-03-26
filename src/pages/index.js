@@ -94,6 +94,11 @@ export default function Home() {
       setFinalResult(singleConstant)
     }
   }, [singleConstant])
+  useEffect(() => {
+    if (singleArg != undefined) {
+      setFinalResult(variables[singleArg])
+    }
+  }, [singleArg])
 
   const updateConstant = (operatorKey, operandId, val) => {
     const tempOps = { ...ops }
@@ -215,7 +220,7 @@ export default function Home() {
           </div>}
           {typeof singleArg !== 'undefined' && <div className="p-4">
             <WithDelButton onDelete={deleteSingleArg} showDelete={true}>
-              <VariableDropdown variableName={Object.keys(variables)[0]} isTrue={variables[Object.keys(variables)[0]]} options={variables} updateArg={(val) => updateVar(operand.id, val)} />
+              <VariableDropdown variableName={singleArg} isTrue={variables[singleArg]} options={variables} updateArg={(val) => setSingleArg(val)} />
             </WithDelButton>
           </div>}
           {Object.keys(ops).length == 0 && typeof singleConstant == 'undefined' && typeof singleArg == 'undefined' && <div className="p-4">
