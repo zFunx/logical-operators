@@ -78,7 +78,12 @@ export default function Home() {
       })
 
       setResults(tempResults)
-      setFinalResult(tempResults['firstOp'])
+
+      if (singleArg) {
+        setFinalResult(variables[singleArg])
+      } else {
+        setFinalResult(tempResults['firstOp'])
+      }
     }
   }, [ops, variables])
 
@@ -179,9 +184,11 @@ export default function Home() {
 
   const createSingleArg = () => {
     setSingleArg(Object.keys(variables)[0])
+    setFinalResult(variables[Object.keys(variables)[0]])
   }
   const deleteSingleArg = () => {
     setSingleArg(undefined)
+    setFinalResult(undefined)
   }
 
   return (
