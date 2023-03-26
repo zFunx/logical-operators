@@ -5,30 +5,14 @@ import WithDelButton from "@/components/WithDelButton.js";
 import DelButton from "@/components/Button/DelButton";
 import Dropdown from "@/components/Dropdown/Dropdown";
 
-const createOperand = ({
-  operatorKey,
-  operand,
-  variables,
-  ops,
-  results,
-  updateConstant,
-  rootUpdateConstant,
-  updateVar,
-  rootUpdateVar,
-  delOp,
-  parentkey,
-  delArgOrConstant,
-  numOfOperandsInParent,
-  createConstant,
-  createArg,
-  createOp,
-  updateOp,
-}) => {
+const createOperand = ({ operator, operand, operands, ...props }) => {
   if (operand.val?.toString()) {
+    const { delArgOrConstant, updateConstant, operatorKey } = props;
+
     return (
       <WithDelButton
-        onDelete={() => delArgOrConstant(parentkey, operand.id)}
-        showDelete={numOfOperandsInParent > 2}
+        onDelete={() => delArgOrConstant(operatorKey, operand.id)}
+        showDelete={operands.length > 2}
       >
         <BoolToogleButton
           isTrue={operand.val}
@@ -37,10 +21,12 @@ const createOperand = ({
       </WithDelButton>
     );
   } else if (operand.arg) {
+    const { delArgOrConstant, updateVar, operatorKey, variables } = props;
+
     return (
       <WithDelButton
-        onDelete={() => delArgOrConstant(parentkey, operand.id)}
-        showDelete={numOfOperandsInParent > 2}
+        onDelete={() => delArgOrConstant(operatorKey, operand.id)}
+        showDelete={operands.length > 2}
       >
         <VariableDropdown
           variableName={operand.arg}
@@ -51,26 +37,12 @@ const createOperand = ({
       </WithDelButton>
     );
   } else if (operand.op) {
-    return (
-      <Operation
-        operatorKey={operand.op}
-        {...ops[operand.op]}
-        ops={ops}
-        variables={variables}
-        result={results[operand.op]}
-        results={results}
-        updateConstant={rootUpdateConstant}
-        updateVar={rootUpdateVar}
-        delOp={delOp}
-        parentkey={parentkey}
-        delArgOrConstant={delArgOrConstant}
-        numOfOperandsInParent={numOfOperandsInParent}
-        createConstant={createConstant}
-        createArg={createArg}
-        createOp={createOp}
-        updateOp={updateOp}
-      />
-    );
+    const newProps = { ...props, ...props.ops[operand.op] };
+    newProps.parentkey = props.operatorKey;
+    newProps.operatorKey = operand.op;
+    newProps.result = props.results[operand.op];
+
+    return <Operation operator={operator} operands={operands} {...newProps} />;
   }
 };
 
@@ -105,23 +77,10 @@ const Operation = ({ operator, operands, ...props }) => {
       {operands.map((operand) => (
         <div key={operand.id} className="p-1">
           {createOperand({
-            operatorKey: props.operatorKey,
             operand,
-            variables: props.variables,
-            ops: props.ops,
-            results: props.results,
-            updateConstant: props.updateConstant,
-            rootUpdateConstant: props.updateConstant,
-            updateVar: props.updateVar,
-            rootUpdateVar: props.updateVar,
-            delOp: props.delOp,
-            parentkey: props.operatorKey,
-            delArgOrConstant: props.delArgOrConstant,
-            numOfOperandsInParent: operands.length,
-            createConstant: props.createConstant,
-            createArg: props.createArg,
-            createOp: props.createOp,
-            updateOp: props.updateOp,
+            operator,
+            operands,
+            ...props,
           })}
         </div>
       ))}

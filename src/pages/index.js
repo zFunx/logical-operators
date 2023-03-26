@@ -104,9 +104,9 @@ export default function Home() {
     }
   }, [singleArg])
 
-  const updateConstant = (operatorKey, operandId, val) => {
+  const updateConstant = (parentKey, operandId, val) => {
     const tempOps = { ...ops }
-    const matchedOperand = tempOps[operatorKey].operands.find(operand => operandId == operand.id);
+    const matchedOperand = tempOps[parentKey].operands.find(operand => operandId == operand.id);
     matchedOperand.val = val;
 
     setOps(tempOps)
